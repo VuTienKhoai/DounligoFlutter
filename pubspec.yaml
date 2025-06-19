@@ -30,7 +30,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  provider: ^6.1.2
+  fluttertoast: ^8.2.4
+  flutter_svg: ^2.2.0
+  table_calendar: ^3.0.9
+  overlay_support: ^1.2.1
+  flutter_animate: ^4.2.0
+  google_fonts: ^6.1.0
+  event_bus: ^2.0.0
+  audioplayers: ^5.2.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
@@ -51,11 +59,31 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/friends.png
+    - assets/images/tv.png
+    - assets/images/tiktok.png
+    - assets/images/facebook.png
+    - assets/images/google.png
+    - assets/images/youtube.png
+    - assets/images/news.png
+    - assets/images/level1.png
+    - assets/images/level2.png
+    - assets/images/level3.png
+    - assets/images/level4.png
+    - assets/images/book.png
+    - assets/images/brain.png
+    - assets/images/bag.png
+    - assets/images/fly.png
+    - assets/images/tata.png
+    - assets/svg/icon_remove.svg
+    - assets/audio/click_button1.mp3
+    - assets/images/book_one.png
+    - assets/audio/click.wav
+    - assets/images/forest.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
