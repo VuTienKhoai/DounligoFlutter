@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -8,166 +9,177 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _usernameController = TextEditingController();
 
-  void _handleRegister() {
-    final email = _emailController.text;
-    final password = _passwordController.text;
-    final confirmPassword = _confirmPasswordController.text;
-    final username = _usernameController.text;
-
-    if (email.isEmpty ||
-        password.isEmpty ||
-        confirmPassword.isEmpty ||
-        username.isEmpty) {
-      _showToast('Dữ liệu không được để trống');
-      return;
+  void handleRegister() {
+    if (_formKey.currentState!.validate()) {
+      // Gọi API ở đây
+      Fluttertoast.showToast(msg: "Tạo tài khoản thành công!");
+      Navigator.pop(context); // Quay về login
     }
-
-    if (password != confirmPassword) {
-      _showToast('Mật khẩu xác nhận không khớp');
-      return;
-    }
-
-    // TODO: Gọi API tạo tài khoản (registerAccount)
-    _showToast('Đăng ký thành công!');
-    Navigator.of(context).pop(); // Quay lại Login
   }
 
-  void _showToast(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  void _navigateToLogin() {
-    Navigator.of(context).pop(); // hoặc dùng Navigator.push nếu khác stack
+  void navigateToLogin() {
+    Navigator.pop(context); // Giống navigation.navigate("Login")
   }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 40),
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: const Icon(Icons.close, size: 28),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-            ),
-            Center(
-              child: Image.network(
-                'https://media.giphy.com/media/TFNbcscr9JUUigDzrZ/giphy.gif',
-                width: width * 0.5,
-                height: width * 0.5,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Tạo tài khoản',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF58CC02),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Hãy tạo tài khoản để đồng hành cùng tớ',
-              style: TextStyle(fontSize: 15, color: Color(0xFF374151)),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            _buildInputField(
-              label: 'Địa chỉ email',
-              controller: _emailController,
-              hint: 'Nhập địa chỉ email',
-            ),
-            _buildInputField(
-              label: 'Mật khẩu',
-              controller: _passwordController,
-              hint: 'Nhập mật khẩu',
-              obscure: true,
-            ),
-            _buildInputField(
-              label: 'Nhập lại mật khẩu',
-              controller: _confirmPasswordController,
-              hint: 'Nhập lại mật khẩu',
-              obscure: true,
-            ),
-            _buildInputField(
-              label: 'Tên người dùng',
-              controller: _usernameController,
-              hint: 'Nhập tên người dùng',
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _handleRegister,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF58CC02),
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: 4,
-                shadowColor: const Color(0xFF58A700),
-              ),
-              child: const Text(
-                'Tạo tài khoản của bạn',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: Text.rich(
-                TextSpan(
-                  text: 'Bạn đã có tài khoản? ',
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF6b7280),
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text("×", style: TextStyle(fontSize: 28)),
+                      ),
+                    ),
                   ),
-                  children: [
-                    TextSpan(
-                      text: 'Đăng nhập tại đây',
-                      style: const TextStyle(
+                  const SizedBox(height: 10),
+                  Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        "https://media.giphy.com/media/TFNbcscr9JUUigDzrZ/giphy.gif",
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.width * 0.5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Tạo tài khoản',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF58CC02),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Hãy tạo tài khoản để đồng hành cùng tớ',
+                    style: TextStyle(fontSize: 15, color: Color(0xFF374151)),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildInput(
+                    label: "Địa chỉ email",
+                    controller: _emailController,
+                    hint: "Nhập địa chỉ email",
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Vui lòng nhập email";
+                      }
+                      if (!value.contains('@')) {
+                        return "Email không hợp lệ";
+                      }
+                      return null;
+                    },
+                  ),
+                  _buildInput(
+                    label: "Mật khẩu",
+                    controller: _passwordController,
+                    hint: "Nhập mật khẩu",
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.length < 6) {
+                        return "Mật khẩu tối thiểu 6 ký tự";
+                      }
+                      return null;
+                    },
+                  ),
+                  _buildInput(
+                    label: "Nhập lại mật khẩu",
+                    controller: _confirmPasswordController,
+                    hint: "Nhập lại mật khẩu",
+                    obscureText: true,
+                    validator: (value) {
+                      if (value != _passwordController.text) {
+                        return "Mật khẩu không trùng khớp";
+                      }
+                      return null;
+                    },
+                  ),
+                  _buildInput(
+                    label: "Tên người dùng",
+                    controller: _usernameController,
+                    hint: "Nhập tên người dùng",
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Vui lòng nhập tên người dùng";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: handleRegister,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF58CC02),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      elevation: 5,
+                    ),
+                    child: const Text(
+                      "Tạo tài khoản của bạn",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 26),
+                  GestureDetector(
+                    onTap: navigateToLogin,
+                    child: const Text(
+                      "Bạn đã có tài khoản? Đăng nhập tại đây",
+                      style: TextStyle(
+                        fontSize: 13,
                         color: Color(0xFF58CC02),
                         decoration: TextDecoration.underline,
                       ),
-                      recognizer:
-                          null, // bạn có thể dùng TapGestureRecognizer nếu cần
+                      textAlign: TextAlign.center,
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
-            const SizedBox(height: 30),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildInputField({
+  Widget _buildInput({
     required String label,
     required TextEditingController controller,
     required String hint,
-    bool obscure = false,
+    bool obscureText = false,
+    String? Function(String?)? validator,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
@@ -177,17 +189,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Text(
             label,
             style: const TextStyle(
-              fontSize: 12,
               fontWeight: FontWeight.w600,
+              fontSize: 12,
               color: Color(0xFF111827),
             ),
           ),
           const SizedBox(height: 4),
-          TextField(
+          TextFormField(
             controller: controller,
-            obscureText: obscure,
+            obscureText: obscureText,
+            validator: validator,
             decoration: InputDecoration(
               hintText: hint,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 14,
+              ),
               filled: true,
               fillColor: const Color(0xFFF9FAFB),
               border: OutlineInputBorder(
@@ -195,7 +212,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
               ),
             ),
-            style: const TextStyle(fontSize: 14, color: Color(0xFF374151)),
           ),
         ],
       ),
