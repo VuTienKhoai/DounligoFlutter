@@ -73,59 +73,69 @@ class _FifthScreenState extends State<FifthScreen> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          HeaderLesson(
-            percent: (currentStep + 1) / steps.length,
-            onPressGoBack: _prevStep,
-          ),
-          const SizedBox(height: 10),
-          Animate(
-            effects: const [FadeEffect(), SlideEffect()],
-            child: TutorialWidget(
-              linkImg: 'assets/images/omnom.png',
-              text: steps[currentStep]['message'],
-            ),
-          ),
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: steps.length,
-              itemBuilder: (_, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: steps[index]['content'],
-                );
-              },
-            ),
-          ),
-          SizedBox(
-            height: screenHeight * 0.1,
-            child: Center(
-              child: Animate(
-                effects: const [FadeEffect(), ScaleEffect()],
-                child: ButtonSound(
-                  title: 'TIẾP TỤC',
-                  onPressed: _nextStep,
-                  backgroundColor: const Color(0xFF58CC02),
-                  shadowColor: const Color(0xFF58A700),
-                  borderColor: const Color(0xFF58CC02),
-                  textStyle: const TextStyle(
-                    color: TEXT_COLORS_DARK,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          child: Column(
+            children: [
+              // Thanh tiến trình và nút quay lại
+              HeaderLesson(
+                percent: (currentStep + 1) / steps.length,
+                onPressGoBack: _prevStep,
+              ),
+              const SizedBox(height: 10),
+
+              // Câu hỏi hướng dẫn
+              Animate(
+                effects: const [FadeEffect(), SlideEffect()],
+                child: TutorialWidget(
+                  linkImg: 'assets/images/omnom.png',
+                  text: steps[currentStep]['message'],
+                ),
+              ),
+
+              // Nội dung chính (các bước trong PageView)
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: steps.length,
+                  itemBuilder: (_, index) {
+                    return steps[index]['content']; // ❌ Không cần bọc Padding nữa
+                  },
+                ),
+              ),
+
+              // Nút tiếp tục
+              SizedBox(
+                height: screenHeight * 0.12,
+                child: Center(
+                  child: Animate(
+                    effects: const [FadeEffect(), ScaleEffect()],
+                    child: ButtonSound(
+                      title: 'TIẾP TỤC',
+                      onPressed: _nextStep,
+                      backgroundColor: const Color(0xFF58CC02),
+                      shadowColor: const Color(0xFF58A700),
+                      borderColor: const Color(0xFF58CC02),
+                      textStyle: const TextStyle(
+                        color: TEXT_COLORS_DARK,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

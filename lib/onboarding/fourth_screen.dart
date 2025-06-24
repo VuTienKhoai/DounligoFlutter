@@ -29,8 +29,15 @@ class _FourthScreenState extends State<FourthScreen>
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     // Navigate to FifthScreen after 2 seconds
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, 'fifth');
+    Timer(const Duration(seconds: 1), () {
+      if (mounted) {
+        try {
+          Navigator.pushReplacementNamed(context, 'fifth');
+        } catch (e, stack) {
+          debugPrint('🚨 Lỗi khi chuyển màn hình: $e');
+          debugPrint('$stack');
+        }
+      }
     });
   }
 

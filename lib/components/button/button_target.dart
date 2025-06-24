@@ -23,13 +23,13 @@ class BtnTarget extends StatefulWidget {
     required this.textLeft,
     required this.textRight,
     required this.colorTextInactive,
-    this.colorTextActive = const Color(0xFF1CB0F6),
-    this.backgroundColor = Colors.white,
-    this.backgroundColorActive = const Color(0xFF58CC02),
-    this.borderColor = const Color(0xFFE5E5E5),
-    this.borderColorActive = const Color(0xFF84D8FF),
-    this.shadowColor = const Color(0xFFE5E5E5),
-    this.shadowColorActive = const Color(0xFF84D8FF),
+    this.colorTextActive = Colors.white, // ✅ Chữ khi được chọn: trắng
+    this.backgroundColor = Colors.white, // ✅ Nền khi chưa chọn: trắng
+    this.backgroundColorActive = const Color(0xFF58CC02), // ✅ Nền xanh Duolingo
+    this.borderColor = const Color(0xFFE5E5E5), // ✅ Viền xám nhẹ khi chưa chọn
+    this.borderColorActive = const Color(0xFF58A700), // ✅ Viền đậm hơn khi chọn
+    this.shadowColor = const Color(0xFFEDEDED), // ✅ Đổ bóng nhẹ, nhẹ nhàng
+    this.shadowColorActive = const Color(0xFF58A700), // ✅ Bóng đậm khi chọn
     this.status = false,
     this.onPress,
   });

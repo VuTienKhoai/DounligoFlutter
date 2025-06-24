@@ -1,8 +1,8 @@
 name: duolingo
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+# pub.dev using flutter pub publish. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -23,10 +23,10 @@ environment:
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# consider running flutter pub upgrade --major-versions. Alternatively,
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
+# versions available, run flutter pub outdated.
 dependencies:
   flutter:
     sdk: flutter
@@ -49,7 +49,7 @@ dev_dependencies:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
+  # activated in the analysis_options.yaml file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
@@ -79,11 +79,21 @@ flutter:
     - assets/images/bag.png
     - assets/images/fly.png
     - assets/images/tata.png
-    - assets/svg/icon_remove.svg
-    - assets/audio/click_button1.mp3
-    - assets/images/book_one.png
+    - assets/images/omnom.png
     - assets/audio/click.wav
-    - assets/images/forest.png
+    - assets/audio/click_button1.mp3
+    - assets/images/friends.png
+    - assets/images/tv.png
+    - assets/images/tiktok.png
+    - assets/images/facebook.png
+    - assets/images/google.png
+    - assets/images/youtube.png
+    - assets/images/book_one.png
+    - assets/images/compass.png
+    # - assets/svg/icon_remove.svg
+    # - assets/audio/click_button1.mp3
+    # - assets/audio/click.wav
+    # - assets/images/forest.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

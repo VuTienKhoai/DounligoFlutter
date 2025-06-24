@@ -84,8 +84,8 @@ class _FifthContentOnBoardingState extends State<FifthContentOnBoarding> {
                           ],
                         ),
                         Positioned(
-                          top: -10,
-                          right: -10,
+                          top: -40,
+                          right: -35,
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 10,

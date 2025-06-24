@@ -60,43 +60,41 @@ class _HeaderLessonState extends State<HeaderLesson>
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-            ), // hoặc dùng SVG nếu bạn có iconSvg
+            icon: const Icon(Icons.arrow_back),
             onPressed: widget.onPressGoBack ?? () => Navigator.pop(context),
           ),
           const SizedBox(width: 10),
-          AnimatedBuilder(
-            animation: _progressAnimation,
-            builder: (context, child) {
-              return Container(
-                width: screenWidth - 80,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: _progressAnimation.value.clamp(0.0, 1.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: widget.colorProgressBar,
-                      borderRadius: BorderRadius.circular(15),
+          Expanded(
+            // ✅ Thêm Expanded ở đây
+            child: AnimatedBuilder(
+              animation: _progressAnimation,
+              builder: (context, child) {
+                return Container(
+                  height: 20,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: FractionallySizedBox(
+                    alignment: Alignment.centerLeft,
+                    widthFactor: _progressAnimation.value.clamp(0.0, 1.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: widget.colorProgressBar,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ],
       ),

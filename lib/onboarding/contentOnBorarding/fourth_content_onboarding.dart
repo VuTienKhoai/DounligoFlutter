@@ -29,20 +29,22 @@ class _FourthContentOnBoardingState extends State<FourthContentOnBoarding> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: const EdgeInsets.only(bottom: 30, top: 10, left: 0, right: 0),
       child: Column(
         children: dataTarget.map((item) {
-          return Animate(
-            key: ValueKey(
-              item['id'],
-            ), // Giúp Flutter nhận diện widget khi rebuild
-            effects: const [FadeEffect(), SlideEffect()],
-            child: BtnTarget(
-              textLeft: item['textleft'] ?? '',
-              textRight: item['textright'] ?? '',
-              colorTextInactive: Colors.black, // hoặc Colors.grey
-              status: selectedTarget == item['id'],
-              onPress: () => handleSelected(item['id']),
+          final isSelected = selectedTarget == item['id'];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Animate(
+              key: ValueKey(item['id']),
+              effects: const [FadeEffect(), SlideEffect()],
+              child: BtnTarget(
+                textLeft: item['textleft'] ?? '',
+                textRight: item['textright'] ?? '',
+                status: isSelected,
+                colorTextInactive: isSelected ? Colors.white : Colors.black,
+                onPress: () => handleSelected(item['id']),
+              ),
             ),
           );
         }).toList(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TutorialWidget extends StatelessWidget {
-  final String? linkImg; // URL ảnh
+  final String? linkImg; // Đường dẫn ảnh local (asset)
   final String text;
 
   const TutorialWidget({super.key, this.linkImg, required this.text});
@@ -14,14 +14,14 @@ class TutorialWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (linkImg != null)
-            Image.network(linkImg!, width: 90, height: 90, fit: BoxFit.cover),
-          const SizedBox(width: 14),
+            Image.asset(linkImg!, width: 90, height: 90, fit: BoxFit.cover),
+          if (linkImg != null) const SizedBox(width: 14),
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(17),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: const Color(0xFFE5E5E5), width: 2),
+                border: Border.all(color: Color(0xFFE5E5E5), width: 2),
               ),
               child: Text(
                 text,
